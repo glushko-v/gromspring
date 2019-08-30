@@ -22,10 +22,15 @@ public class MyController {
     public @ResponseBody
     String calledByBean() {
         route.getId();
+
         route.getSteps();
+
         step.getId();
+
         step.getParamsServiceFrom();
+
         step.getParamsServiceTo();
+
         step.getServiceTo();
         step.getServiceFrom();
         service.getId();

@@ -9,6 +9,9 @@ public class Step {
     private Map paramsServiceFrom;
     private Map paramsServiceTo;
 
+    public Step(String s) {
+    }
+
     public long getId() {
         return id;
     }
