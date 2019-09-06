@@ -1,0 +1,18 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@gromcode.cfc1xaielreq.us-east-2.rds.amazonaws.com:1521:ORCL</property>
+        <property name="hibernate.connection.username">main</property>
+        <property name="hibernate.connection.password">test123456</property>
+
+
+                <mapping class="com.lesson3.HomeWork.model.Storage"></mapping>
+                <mapping class="com.lesson3.HomeWork.model.File"></mapping>
+<!--        <mapping class="hibernate.lesson4.model.Room"></mapping>-->
+<!--        <mapping class="hibernate.lesson4.model.Hotel"></mapping>-->
+<!--        <mapping class="hibernate.lesson4.model.Order"></mapping>-->
+<!--        <mapping class="hibernate.lesson4.model.User"></mapping>-->
+
+
+    </session-factory>
+</hibernate-configuration>
