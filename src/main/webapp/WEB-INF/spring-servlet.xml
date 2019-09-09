@@ -8,37 +8,32 @@
 
     <context:component-scan base-package="com"/>
 
-    <bean id = "route" class="com.hw1.Route">
-        <constructor-arg name="id" value="321"/>
-    </bean>
+    <!--    <bean id = "route" class="com.hw1.Route">-->
+    <!--        <constructor-arg name="id" value="321"/>-->
+    <!--    </bean>-->
 
 
-    <bean id = "step" class = "com.hw1.Step">
-        <constructor-arg name="id" value="123"/>
-    </bean>
-    <bean id = "service" class="com.hw1.Service">
-        <constructor-arg name="id" value="654"/>
-        <constructor-arg name="name" value="TEST"/>
-    </bean>
+    <!--    <bean id = "step" class = "com.hw1.Step">-->
+    <!--        <constructor-arg name="id" value="123"/>-->
+    <!--    </bean>-->
+    <!--    <bean id = "service" class="com.hw1.Service">-->
+    <!--        <constructor-arg name="id" value="654"/>-->
+    <!--        <constructor-arg name="name" value="TEST"/>-->
+    <!--    </bean>-->
 
-    <bean id = "file" class="com.lesson3.HomeWork.model.File"/>
-    <bean id = "storage" class="com.lesson3.HomeWork.model.Storage"/>
-    <bean id = "storageDAO" class="com.lesson3.HomeWork.DAO.StorageDAO"/>
-    <bean id = "fileDAO" class="com.lesson3.HomeWork.DAO.FileDAO"/>
-    <bean id = "storageService" class="com.lesson3.HomeWork.Service.StorageService"/>
-    <bean id = "fileService" class="com.lesson3.HomeWork.Service.FileService"/>
-
-
+    <bean id="file" class="com.lesson3.HomeWork.model.File"/>
+    <bean id="storage" class="com.lesson3.HomeWork.model.Storage"/>
+    <bean id="storageDAO" class="com.lesson3.HomeWork.DAO.StorageDAO"/>
+    <bean id="fileDAO" class="com.lesson3.HomeWork.DAO.FileDAO"/>
+    <bean id="storageService" class="com.lesson3.HomeWork.Service.StorageService"/>
+    <bean id="fileService" class="com.lesson3.HomeWork.Service.FileService"/>
 
 
+    <bean id="itemService" class="com.hw2.ItemService"/>
+    <bean id="itemDAO" class="com.hw2.ItemDAO"/>
 
 
-    <bean id = "itemService" class="com.hw2.ItemService"/>
-    <bean id = "itemDAO" class="com.hw2.ItemDAO"/>
-
-
-
-
+    <!--    <bean id = "service" class="com.lesson3.HomeWork.Service.Service"/>-->
 
 
 </beans>

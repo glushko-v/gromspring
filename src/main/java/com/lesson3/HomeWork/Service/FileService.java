@@ -1,30 +1,87 @@
 package com.lesson3.HomeWork.Service;
 
+import com.lesson3.HomeWork.DAO.FileDAO;
 import com.lesson3.HomeWork.model.File;
 import com.lesson3.HomeWork.model.Storage;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import javax.persistence.Query;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class FileService implements Service<File> {
+    FileDAO fileDAO = new FileDAO();
+    private SessionFactory sessionFactory;
 
-    //проверка допустимого формата файла
+    private SessionFactory createSessionFactory() {
+
+        if (sessionFactory == null)
+            sessionFactory = new Configuration().configure().buildSessionFactory();
+
+        return sessionFactory;
+    }
+
+
 
     @Override
     public File save(File file) throws Exception {
-        return null;
+        if (isNullFields(file)) return fileDAO.save(file);
+        else throw new Exception("File contains null fields");
     }
 
     @Override
     public void delete(long id) throws Exception {
 
+        if (isIdExists(id))fileDAO.delete(id);
+        else throw new Exception("There's no file with ID " + id);
+
     }
 
     @Override
     public File update(File file, long id) throws Exception {
-        return null;
+        if (isIdExists(id) && isNullFields(file)) return fileDAO.update(file, id);
+        else if (!isNullFields(file)) throw new Exception("File contains null fields");
+        else throw new Exception("There's no file with ID " + id);
     }
 
     @Override
     public File findById(long id) throws Exception {
-        return null;
+        if (isIdExists(id)) return fileDAO.findById(id);
+        else throw new Exception("There's no file with ID " + id);
+    }
+
+    private boolean isIdExists(long id) { //true если id есть в базе
+
+        Transaction tr = null;
+        int count = 0;
+
+        try (Session session = createSessionFactory().openSession()) {
+
+            tr = session.getTransaction();
+            tr.begin();
+
+            Query query = session.createSQLQuery("SELECT FILEID FROM FILES");
+            List<BigDecimal> ids = query.getResultList();
+
+            for (BigDecimal idFromDb : ids) {
+                if (idFromDb.longValue() == id) count++;
+            }
+
+
+            tr.commit();
+
+        } catch (HibernateException e) {
+            System.err.println("Id " + id + " can not be checked");
+            e.printStackTrace();
+            if (tr != null) tr.rollback();
+        }
+
+
+        return count > 0;
     }
 
     public boolean isFormatSupported(Storage storage, File file) {
@@ -40,4 +97,11 @@ public class FileService implements Service<File> {
 
         return count > 0;
     }
+
+    private boolean isNullFields(File file){ //true если нет пустых полей
+
+        return (file.getFormat() != null && file.getName() != null && file.getSize() != 0);
+    }
+
+
 }
