@@ -6,8 +6,9 @@
         <property name="hibernate.connection.password">test123456</property>
 
 
-                <mapping class="com.lesson3.HomeWork.model.Storage"></mapping>
-                <mapping class="com.lesson3.HomeWork.model.File"></mapping>
+                <mapping class="com.lesson3.HomeWork.model.Storage"/>
+                <mapping class="com.lesson3.HomeWork.model.File"/>
+                <mapping class="com.hw2.Item"/>
 <!--        <mapping class="hibernate.lesson4.model.Room"></mapping>-->
 <!--        <mapping class="hibernate.lesson4.model.Hotel"></mapping>-->
 <!--        <mapping class="hibernate.lesson4.model.Order"></mapping>-->

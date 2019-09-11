@@ -1,7 +1,9 @@
 package com.hw2;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,43 +12,65 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ItemController {
 
-    @Autowired
+
     private ItemService itemService;
 
+
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/itemsave", produces = "text/plain")
     public @ResponseBody String save(Item item){
 
-        itemService.save(item);
+        try {
+            itemService.save(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "Saving...";
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/itemupdate", produces = "text/plain")
-    public @ResponseBody String update(Item item){
+    public @ResponseBody String update(Item item, long id){
 
-        itemService.update(item);
+        try {
+            itemService.update(item, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return "Updating...";
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/itemdelete", produces = "text/plain")
-    public @ResponseBody String delete(){
+    public @ResponseBody String delete(long id){
 
-        itemService.delete();
+        try {
+            itemService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return "Deleting...";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/itembyid", produces = "text/plain")
-    public @ResponseBody String findById(){
+    @RequestMapping(method = RequestMethod.GET, value = "/itembyid/{id}", produces = "text/plain")
+    public @ResponseBody String findById(@PathVariable("id") long id){
 
-        itemService.findById();
+        Item item = null;
+        try {
+            item = itemService.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
-        return "Found by ID...";
+
+        return item.toString();
     }
 
 

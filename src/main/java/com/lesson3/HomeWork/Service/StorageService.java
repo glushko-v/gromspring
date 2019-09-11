@@ -2,7 +2,9 @@ package com.lesson3.HomeWork.Service;
 
 
 import com.lesson3.HomeWork.DAO.StorageDAO;
+import com.lesson3.HomeWork.model.NullFieldsException;
 import com.lesson3.HomeWork.model.Storage;
+import com.lesson3.HomeWork.model.WrongIdException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,35 +32,35 @@ public class StorageService implements Service<Storage> {
 
 
     @Override
-    public Storage save(Storage storage) throws Exception {
+    public Storage save(Storage storage) throws HibernateException, NullFieldsException {
 
         if (!isNullFields(storage)) return storageDAO.save(storage);
-        else throw new Exception("Storage contains null fields");
+        else throw new NullFieldsException ("Storage contains null fields");
     }
 
     @Override
-    public void delete(long id) throws Exception {
+    public void delete(long id) throws WrongIdException, HibernateException {
 
         if (isIdExists(id)) storageDAO.delete(id);
-        else throw new Exception("There's no storage with ID " + id);
+        else throw new WrongIdException ("There's no storage with ID " + id);
 
     }
 
     @Override
-    public Storage update(Storage storage, long id) throws Exception {
+    public Storage update(Storage storage, long id) throws NullFieldsException, HibernateException, WrongIdException {
 
         if (isIdExists(id) && !isNullFields(storage)) return storageDAO.update(storage, id);
 
-        else if (isNullFields(storage)) throw new Exception("Storage contains null fields");
-        else throw new Exception("There's no storage with ID " + id);
+        else if (isNullFields(storage)) throw new NullFieldsException("Storage contains null fields");
+        else throw new WrongIdException("There's no storage with ID " + id);
     }
 
     @Override
-    public Storage findById(long id) throws Exception {
+    public Storage findById(long id) throws WrongIdException, HibernateException {
 
         if (isIdExists(id)) return storageDAO.findById(id);
 
-        else throw new Exception("There's no storage with ID " + id);
+        else throw new WrongIdException ("There's no storage with ID " + id);
     }
 
     private boolean isNullFields(Storage storage) { //true если есть пустые поля

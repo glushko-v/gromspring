@@ -27,10 +27,19 @@
     <bean id="fileDAO" class="com.lesson3.HomeWork.DAO.FileDAO"/>
     <bean id="storageService" class="com.lesson3.HomeWork.Service.StorageService"/>
     <bean id="fileService" class="com.lesson3.HomeWork.Service.FileService"/>
+    <bean id="service" class="com.lesson3.HomeWork.Service.Service" abstract="true"/>
 
 
-    <bean id="itemService" class="com.hw2.ItemService"/>
+
+    <bean id ="item" class="com.hw2.Item"/>
     <bean id="itemDAO" class="com.hw2.ItemDAO"/>
+    <bean id="itemService" class="com.hw2.ItemService">
+        <constructor-arg name="itemDAO" ref="itemDAO"/>
+    </bean>
+    <bean id="itemController" class="com.hw2.ItemController">
+        <constructor-arg name="itemService" ref="itemService"/>
+    </bean>
+
 
 
     <!--    <bean id = "service" class="com.lesson3.HomeWork.Service.Service"/>-->

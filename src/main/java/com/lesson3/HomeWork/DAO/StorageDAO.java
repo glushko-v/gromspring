@@ -134,7 +134,7 @@ public class StorageDAO implements DAO<Storage> {
             tr.commit();
 
         } catch (HibernateException e) {
-            System.err.println("Can't save storage with id " + id);
+            System.err.println("Can't find storage with id " + id);
             e.printStackTrace();
             if (tr != null) tr.rollback();
         }
