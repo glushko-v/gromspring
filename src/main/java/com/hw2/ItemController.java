@@ -45,8 +45,9 @@ public class ItemController {
         return "Updating...";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/itemdelete", produces = "text/plain")
-    public @ResponseBody String delete(long id){
+    @RequestMapping(method = RequestMethod.DELETE, value = "/itemdelete/{id}", produces = "text/plain")
+    public @ResponseBody String delete(@PathVariable("id") long id){
+
 
         try {
             itemService.delete(id);
@@ -55,7 +56,7 @@ public class ItemController {
         }
 
 
-        return "Deleting...";
+        return ("Deleted item " + id);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/itembyid/{id}", produces = "text/plain")
