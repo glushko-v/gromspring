@@ -1,7 +1,5 @@
 package com.hw2;
 
-import com.lesson3.HomeWork.model.NullFieldsException;
-import com.lesson3.HomeWork.model.WrongIdException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
