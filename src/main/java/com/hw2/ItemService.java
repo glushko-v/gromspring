@@ -27,8 +27,8 @@ public class ItemService {
 
 
         if (!isItemExists(item) && !isNullFields(item)) return itemDAO.save(item);
-        else if (isItemExists(item)) throw new WrongIdException ("Item " + item.getName() + " has been already saved");
-        else throw new NullFieldsException ("Item " + item.getName() + " contains null fields");
+        else if (isItemExists(item)) throw new Exception ("Item " + item.getName() + " has been already saved");
+        else throw new Exception ("Item " + item.getName() + " contains null fields");
 
     }
 
@@ -37,13 +37,13 @@ public class ItemService {
         Item item = itemDAO.findById(id);
 
         if (isItemExists(item)) itemDAO.delete(id);
-        else throw new WrongIdException("There's no item with id " + id);
+        else throw new Exception("There's no item with id " + id);
     }
 
     Item findById(long id) throws Exception {
 
         if (isIdExists(id)) return itemDAO.findById(id);
-        else throw new WrongIdException ("There's no item with id " + id);
+        else throw new Exception ("There's no item with id " + id);
     }
 
     Item update(Item item, long id) throws Exception {
@@ -52,9 +52,9 @@ public class ItemService {
         if (!isItemExists(item) && !isNullFields(item)) return itemDAO.update(item, id);
 
         else if (isItemExists(item))
-            throw new WrongIdException("There's no item " + item.getName());
+            throw new Exception("There's no item " + item.getName());
 
-        else throw new NullFieldsException("Item " + item.getName() + " contains null fields");
+        else throw new Exception("Item " + item.getName() + " contains null fields");
     }
 
     boolean isItemExists(Item item) {
