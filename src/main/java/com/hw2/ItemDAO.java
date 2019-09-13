@@ -103,7 +103,7 @@ public class ItemDAO {
             tr = session.getTransaction();
             tr.begin();
 
-            Query query = session.createSQLQuery("UPDATE ITEM SET NAME = ?, DATE_CREATED = ?, DATE_UPDATED = ?, DESCRIPTION = ? WHERE ID =?");
+            Query query = session.createSQLQuery("UPDATE ITEM SET ITEM_NAME = ?, DATE_CREATED = ?, DATE_UPDATED = ?, DESCRIPTION = ? WHERE ID =?");
             query.setParameter(1, item.getName());
             query.setParameter(2, item.getDateCreated());
             query.setParameter(3, item.getLastUpdatedDate());

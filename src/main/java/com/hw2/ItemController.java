@@ -1,12 +1,13 @@
 package com.hw2;
 
-import org.hibernate.HibernateException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletRequest;
+
+import java.io.BufferedReader;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.*;
 
 
 @Controller
@@ -21,7 +22,11 @@ public class ItemController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/itemsave", produces = "text/plain")
-    public @ResponseBody String save(Item item){
+    public @ResponseBody Item save(HttpServletRequest req) throws IOException {
+
+        BufferedReader br = new BufferedReader(req.getReader());
+
+        Item item = mapJSONtoItem(br);
 
         try {
             itemService.save(item);
@@ -29,11 +34,14 @@ public class ItemController {
             e.printStackTrace();
         }
 
-        return "Saving...";
+        return item;
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/itemupdate", produces = "text/plain")
-    public @ResponseBody String update(Item item, long id){
+    @RequestMapping(method = RequestMethod.PUT, value = "/itemupdate/{id}", produces = "text/plain")
+    public @ResponseBody Item update(@PathVariable("id") long id, HttpServletRequest req) throws IOException {
+
+        BufferedReader br = new BufferedReader(req.getReader());
+        Item item = mapJSONtoItem(br);
 
         try {
             itemService.update(item, id);
@@ -42,7 +50,7 @@ public class ItemController {
         }
 
 
-        return "Updating...";
+        return item;
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/itemdelete/{id}", produces = "text/plain")
@@ -73,6 +81,28 @@ public class ItemController {
 
         return item.toString();
     }
+
+    Item mapJSONtoItem(BufferedReader br) {
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+
+
+            Item item = mapper.readValue(br, Item.class);
+
+            return item;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
+
 
 
 

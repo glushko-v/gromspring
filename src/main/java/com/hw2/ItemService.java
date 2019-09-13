@@ -5,7 +5,7 @@ import com.lesson3.HomeWork.model.WrongIdException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.Query;
 import java.math.BigDecimal;
