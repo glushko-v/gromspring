@@ -22,34 +22,35 @@ public class ItemController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/itemsave", produces = "text/plain")
-    public @ResponseBody Item save(HttpServletRequest req) throws IOException {
+    public @ResponseBody Item save(HttpServletRequest req, Item item) throws IOException {
 
         BufferedReader br = new BufferedReader(req.getReader());
 
-        Item item = mapJSONtoItem(br);
+
 
         try {
-            itemService.save(item);
+            itemService.save(mapJSONtoItem(br));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        br.close();
         return item;
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/itemupdate/{id}", produces = "text/plain")
-    public @ResponseBody Item update(@PathVariable("id") long id, HttpServletRequest req) throws IOException {
+    public @ResponseBody Item update(@PathVariable("id") long id, HttpServletRequest req, Item item) throws IOException {
 
         BufferedReader br = new BufferedReader(req.getReader());
-        Item item = mapJSONtoItem(br);
+
 
         try {
-            itemService.update(item, id);
+            itemService.update(mapJSONtoItem(br), id);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
+        br.close();
         return item;
     }
 
