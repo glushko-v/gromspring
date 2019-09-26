@@ -114,41 +114,36 @@ public class FileService {
 
     public void put(Storage storage, File file) throws FileAlreadyInStorageException, FormatNotSupportedException {
 
-        if(isFormatSupported(storage, file) && file.getStorage() == null) fileDAO.put(storage, file);
-        else if (file.getStorage() != null ) throw new FileAlreadyInStorageException("File " + file.getId() + " is already in storage " + file.getStorage().getId());
-        else if (!isFormatSupported(storage, file)) throw new FormatNotSupportedException("File format " + file.getFormat() + " is not supported by Storage " + storage.getId());
+        if (isFormatSupported(storage, file) && file.getStorage() == null) fileDAO.put(storage, file);
+        else if (file.getStorage() != null)
+            throw new FileAlreadyInStorageException("File " + file.getId() + " is already in storage " + file.getStorage().getId());
+        else if (!isFormatSupported(storage, file))
+            throw new FormatNotSupportedException("File format " + file.getFormat() + " is not supported by Storage " + storage.getId());
 
     }
 
     public void deleteFromStorage(Storage storage, File file) throws NullFieldsException, FileAlreadyInStorageException {
 
         if (file.getStorage().equals(storage)) fileDAO.deleteFromStorage(storage, file);
-        else if (file.getStorage() == null) throw new NullFieldsException("File " + file.getId() + " is not stored in any storage");
-        else if (file.getStorage() != null && !file.getStorage().equals(storage)) throw new FileAlreadyInStorageException("File " + file.getId() + " is in storage " + file.getStorage().getId());
+        else if (file.getStorage() == null)
+            throw new NullFieldsException("File " + file.getId() + " is not stored in any storage");
+        else if (file.getStorage() != null && !file.getStorage().equals(storage))
+            throw new FileAlreadyInStorageException("File " + file.getId() + " is in storage " + file.getStorage().getId());
 
     }
 
     public void transferFile(Storage storageFrom, Storage storageTo, long id) throws FileAlreadyInStorageException, NullFieldsException, WrongIdException {
 
-//        if (storageFrom != null && storageTo != null && !storageFrom.equals(storageTo)) {
-//            if (isIdExists(id)) fileDAO.transferFile(storageTo, id);
-//            else throw new WrongIdException("There is no file with ID " + id);
-//        } else if (storageFrom == null || storageTo == null) throw new NullFieldsException("One of the storages does not exist, can not transfer file");
-//        else if (storageFrom.equals(storageTo)) throw new FileAlreadyInStorageException("File " + id + " is already in storage " + storageFrom.getId());
-
-        fileDAO.transferFile(storageTo, id);
-
-
-//        if (file.getStorage() != null && !file.getStorage().equals(storageTo)) fileDAO.put(storageTo, file);
-//        else if (file.getStorage() != null && file.getStorage().equals(storageTo))
-//            throw new FileAlreadyInStorageException("File " + file.getId() + " is already in storage " + file.getStorage().getId());
-//        else if (file.getStorage() == null || storageTo == null) throw new NullFieldsException("File has no storage or storage does not exist");
+        if (storageFrom != null && storageTo != null && !storageFrom.equals(storageTo)) {
+            if (isIdExists(id)) fileDAO.transferFile(storageTo, id);
+            else throw new WrongIdException("There is no file with ID " + id);
+        } else if (storageFrom == null || storageTo == null)
+            throw new NullFieldsException("One of the storages does not exist, can not transfer file");
+        else if (storageFrom.equals(storageTo))
+            throw new FileAlreadyInStorageException("File " + id + " is already in storage " + storageFrom.getId());
 
 
     }
-
-
-
 
 
 }
