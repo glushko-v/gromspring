@@ -1,6 +1,9 @@
 package com.lesson3.HomeWork.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -13,6 +16,8 @@ public class File {
     private String format;
     private long size;
     private Storage storage;
+
+
 
     public File(String name, String format, long size, Storage storage) {
 
@@ -27,7 +32,7 @@ public class File {
 
     @Id
     @Column(name = "FILEID")
-    @SequenceGenerator(name = "F_SEQ", sequenceName = "HOTEL_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "F_SEQ", sequenceName = "FILE_SEQ", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "F_SEQ")
     public long getId() {
         return id;
@@ -38,6 +43,7 @@ public class File {
     }
 
     @Column(name = "FILENAME")
+    @JsonProperty("Filename")
     public String getName() {
         return name;
     }
@@ -47,6 +53,7 @@ public class File {
     }
 
     @Column(name = "FILEFORMAT")
+    @JsonProperty("Format")
     public String getFormat() {
         return format;
     }
@@ -56,6 +63,7 @@ public class File {
     }
 
     @Column(name = "FILESIZE")
+    @JsonProperty("Filesize")
     public long getSize() {
         return size;
     }
@@ -65,8 +73,9 @@ public class File {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "STORAGE_ID")
+    @JsonProperty("Storage")
     public Storage getStorage() {
         return storage;
     }
@@ -91,6 +100,8 @@ public class File {
 
     @Override
     public String toString() {
-        return "File " + "id= " + id + " " + name + "." + format + ", storage " + storage;
+        return "File " + "id= " + id + " " + name + "." + format + ", " + "storage " + storage;
     }
+
+
 }

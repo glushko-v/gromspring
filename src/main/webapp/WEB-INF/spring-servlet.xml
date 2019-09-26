@@ -25,13 +25,20 @@
     <bean id="storage" class="com.lesson3.HomeWork.model.Storage"/>
     <bean id="storageDAO" class="com.lesson3.HomeWork.DAO.StorageDAO"/>
     <bean id="fileDAO" class="com.lesson3.HomeWork.DAO.FileDAO"/>
-    <bean id="storageService" class="com.lesson3.HomeWork.Service.StorageService"/>
-    <bean id="fileService" class="com.lesson3.HomeWork.Service.FileService"/>
-    <bean id="service" class="com.lesson3.HomeWork.Service.Service" abstract="true"/>
+    <bean id="storageService" class="com.lesson3.HomeWork.Service.StorageService">
+        <constructor-arg ref="storageDAO"/>
+    </bean>
+    <bean id="fileService" class="com.lesson3.HomeWork.Service.FileService">
+        <constructor-arg ref="fileDAO"/>
+    </bean>
+
+    <bean id="controller" class="com.lesson3.HomeWork.Controller.Controller">
+        <constructor-arg ref="fileService"/>
+        <constructor-arg ref="storageService"/>
+    </bean>
 
 
-
-    <bean id ="item" class="com.hw2.Item"/>
+    <bean id="item" class="com.hw2.Item"/>
     <bean id="itemDAO" class="com.hw2.ItemDAO"/>
     <bean id="itemService" class="com.hw2.ItemService">
         <constructor-arg name="itemDAO" ref="itemDAO"/>
@@ -39,8 +46,6 @@
     <bean id="itemController" class="com.hw2.ItemController">
         <constructor-arg name="itemService" ref="itemService"/>
     </bean>
-
-
 
 
     <!--    <bean id = "service" class="com.lesson3.HomeWork.Service.Service"/>-->

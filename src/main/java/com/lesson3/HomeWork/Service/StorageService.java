@@ -1,25 +1,29 @@
 package com.lesson3.HomeWork.Service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lesson3.HomeWork.DAO.StorageDAO;
-import com.lesson3.HomeWork.model.NullFieldsException;
+import com.lesson3.HomeWork.model.Exceptions.NullFieldsException;
 import com.lesson3.HomeWork.model.Storage;
-import com.lesson3.HomeWork.model.WrongIdException;
+import com.lesson3.HomeWork.model.Exceptions.WrongIdException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Query;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class StorageService implements Service<Storage> {
+public class StorageService  {
 
 
     private SessionFactory sessionFactory;
-    private StorageDAO storageDAO = new StorageDAO();
+    private StorageDAO storageDAO;
 
 
     private SessionFactory createSessionFactory() {
@@ -30,23 +34,27 @@ public class StorageService implements Service<Storage> {
         return sessionFactory;
     }
 
+    @Autowired
+    public StorageService(StorageDAO storageDAO) {
+        this.storageDAO = storageDAO;
+    }
 
-    @Override
+
     public Storage save(Storage storage) throws HibernateException, NullFieldsException {
 
         if (!isNullFields(storage)) return storageDAO.save(storage);
-        else throw new NullFieldsException ("Storage contains null fields");
+        else throw new NullFieldsException("Storage contains null fields");
     }
 
-    @Override
+
     public void delete(long id) throws WrongIdException, HibernateException {
 
         if (isIdExists(id)) storageDAO.delete(id);
-        else throw new WrongIdException ("There's no storage with ID " + id);
+        else throw new WrongIdException("There's no storage with ID " + id);
 
     }
 
-    @Override
+
     public Storage update(Storage storage, long id) throws NullFieldsException, HibernateException, WrongIdException {
 
         if (isIdExists(id) && !isNullFields(storage)) return storageDAO.update(storage, id);
@@ -55,13 +63,30 @@ public class StorageService implements Service<Storage> {
         else throw new WrongIdException("There's no storage with ID " + id);
     }
 
-    @Override
+
     public Storage findById(long id) throws WrongIdException, HibernateException {
 
         if (isIdExists(id)) return storageDAO.findById(id);
 
-        else throw new WrongIdException ("There's no storage with ID " + id);
+        else throw new WrongIdException("There's no storage with ID " + id);
     }
+
+
+    public Storage mapJSONtoStorage(BufferedReader br) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            Storage storage = mapper.readValue(br, Storage.class);
+            return storage;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     private boolean isNullFields(Storage storage) { //true если есть пустые поля
 
