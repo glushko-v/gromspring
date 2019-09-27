@@ -145,5 +145,13 @@ public class FileService {
 
     }
 
+    public void transferAll(Storage storageFrom, Storage storageTo) throws NullFieldsException {
+
+
+        if (storageFrom != null && storageTo != null)fileDAO.transferAll(storageFrom, storageTo);
+        else throw new NullFieldsException("Storage(s) do(es) not exist(s)");
+
+    }
+
 
 }

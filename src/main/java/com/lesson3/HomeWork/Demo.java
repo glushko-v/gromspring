@@ -56,6 +56,8 @@ public class Demo {
 //        fd.transferFile(sd.findById(112), 4);
 //        fd.transferFile(sd.findById(112), 3);
 
+        System.out.println(sd.findById(111).getFiles());
+
 
 
 

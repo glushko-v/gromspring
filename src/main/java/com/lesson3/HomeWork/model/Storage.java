@@ -77,7 +77,7 @@ public class Storage {
         return "Storage " + id + " " + storageCountry;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storage")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "storage", fetch = FetchType.EAGER)
     public List<File> getFiles() {
         return files;
     }

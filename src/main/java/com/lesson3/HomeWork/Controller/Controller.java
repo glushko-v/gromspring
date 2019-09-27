@@ -269,6 +269,24 @@ public class Controller {
 
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/transferall/from_{storageFromID}/to_{storageToID}")
+    public @ResponseBody
+    void transferAll(@PathVariable("storageFromID") long storageFromID, @PathVariable("storageToID") long storageToID, HttpServletResponse resp) throws IOException {
+
+        try {
+            Storage storageTo = storageService.findById(storageToID);
+            Storage storageFrom = storageService.findById((storageFromID));
+            fileService.transferAll(storageFrom, storageTo);
+            resp.setStatus(200);
+
+        } catch (WrongIdException e) {
+            resp.sendError(404, ("Wrong ID. Please check storage ID"));
+        } catch (NullFieldsException e) {
+            resp.sendError(404, "Storage(s) do(es) not exist(s)");
+        }
+
+    }
+
 
 }
 
