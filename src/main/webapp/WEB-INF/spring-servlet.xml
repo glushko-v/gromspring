@@ -26,15 +26,15 @@
     <bean id="storageDAO" class="com.lesson3.HomeWork.DAO.StorageDAO"/>
     <bean id="fileDAO" class="com.lesson3.HomeWork.DAO.FileDAO"/>
     <bean id="storageService" class="com.lesson3.HomeWork.Service.StorageService">
-        <constructor-arg ref="storageDAO"/>
+<!--        <constructor-arg ref="storageDAO"/>-->
     </bean>
     <bean id="fileService" class="com.lesson3.HomeWork.Service.FileService">
-        <constructor-arg ref="fileDAO"/>
+<!--        <constructor-arg ref="fileDAO"/>-->
     </bean>
 
     <bean id="controller" class="com.lesson3.HomeWork.Controller.Controller">
-        <constructor-arg ref="fileService"/>
-        <constructor-arg ref="storageService"/>
+<!--        <constructor-arg ref="fileService"/>-->
+<!--        <constructor-arg ref="storageService"/>-->
     </bean>
 
 

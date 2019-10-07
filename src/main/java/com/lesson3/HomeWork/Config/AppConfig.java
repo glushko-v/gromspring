@@ -12,57 +12,56 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.beans.ConstructorProperties;
+
 
 
 @Configuration
 @EnableWebMvc
 @ComponentScan("com")
-public class AppConfig extends WebMvcConfigurerAdapter{
+public class AppConfig  {
 
     @Bean
     public File getFile() {
-        File file = new File();
-        return file;
+
+        return new File();
     }
 
     @Bean
     public FileDAO getFileDAO() {
-        FileDAO fileDAO = new FileDAO();
-        return fileDAO;
+
+        return new FileDAO();
     }
 
     @Bean
     public FileService getFileService() {
-        FileService fileService = new FileService(getFileDAO());
-        return fileService;
+        return new FileService(getFileDAO());
+
 
     }
 
     @Bean
     public Storage getStorage(){
-        Storage storage = new Storage();
-        return storage;
+        return new Storage();
+
     }
 
     @Bean
     public StorageDAO getStorageDAO(){
-        StorageDAO storageDAO = new StorageDAO();
-        return storageDAO;
+        return new StorageDAO();
+
     }
 
     @Bean
     public StorageService getStorageService(){
-        StorageService storageService = new StorageService(getStorageDAO());
-        return storageService;
+        return new StorageService(getStorageDAO());
+
     }
 
     @Bean
     public Controller getController(){
-        Controller controller = new Controller(getFileService(), getStorageService());
-        return controller;
+        return new Controller(getFileService(), getStorageService());
+
     }
 
 }
