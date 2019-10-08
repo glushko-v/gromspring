@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 
 
-//@Controller
+//@TestController
 public class ItemController {
 
 

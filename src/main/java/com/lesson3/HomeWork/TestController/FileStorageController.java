@@ -1,4 +1,4 @@
-package com.lesson3.HomeWork.Controller;
+package com.lesson3.HomeWork.TestController;
 
 
 //проверка допустимого формата файла
@@ -30,7 +30,7 @@ import java.io.PrintWriter;
 
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class FileStorageController {
 
 
     private FileService fileService;
@@ -39,7 +39,7 @@ public class Controller {
     private StorageService storageService;
 
     @Autowired
-    public Controller(FileService fileService, StorageService storageService) {
+    public FileStorageController(FileService fileService, StorageService storageService) {
         this.fileService = fileService;
         this.storageService = storageService;
     }

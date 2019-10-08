@@ -1,6 +1,6 @@
 package com.lesson3.HomeWork.Config;
 
-import com.lesson3.HomeWork.Controller.Controller;
+import com.lesson3.HomeWork.TestController.FileStorageController;
 import com.lesson3.HomeWork.DAO.FileDAO;
 import com.lesson3.HomeWork.DAO.StorageDAO;
 import com.lesson3.HomeWork.Service.FileService;
@@ -59,8 +59,8 @@ public class AppConfig  {
     }
 
     @Bean
-    public Controller getController(){
-        return new Controller(getFileService(), getStorageService());
+    public FileStorageController getController(){
+        return new FileStorageController(getFileService(), getStorageService());
 
     }
 
